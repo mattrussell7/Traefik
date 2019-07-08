@@ -1,0 +1,12 @@
+[file]
+
+[backend]
+[backend.plex-aws]
+  url = "http://172.18.0.2:32400"
+  
+[frontend]
+[frontend.plex-internalaws]
+    backend = "plex-aws"
+    rule = "Host:plex-internalaws.mattkrussell.com"
+
+
