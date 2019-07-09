@@ -54,13 +54,19 @@
         owner: '1000'
         group: '1000'
         
+    - name: Check for roles.toml
+      stat:
+        path: "/opt/appdata/traefik/roles.toml"
+      register: roles_toml
+
     - name: Installing roles.toml
       template:
         src: roles.toml
         dest: /opt/appdata/traefik/roles.toml
         force: yes
         owner: '1000'
-        group: '1000'     
+        group: '1000'
+      when: roles_toml.stat.exisits == False
 
     - name: Check acme.json exists
       stat:
@@ -90,6 +96,7 @@
           - /var/run/docker.sock:/var/run/docker.sock:ro
           - /etc/localtime:/etc/localtime:ro
           - /opt/appdata/traefik/traefik.toml:/etc/traefik/traefik.toml:ro
+          - /opt/appdata/traefik/rules.toml:/etc/traefik/rules.toml:ro
           - /opt/appdata/traefik/acme:/etc/traefik/acme
         restart_policy: unless-stopped
         state: started
