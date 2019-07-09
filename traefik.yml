@@ -66,7 +66,7 @@
         force: yes
         owner: '1000'
         group: '1000'
-      when: roles_toml.stat.exisits == False
+      when: roles_toml.stat.exists == False
 
     - name: Check acme.json exists
       stat:
